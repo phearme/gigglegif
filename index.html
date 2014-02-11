@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height" />
+	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<title>Giggle GIF</title>
+	<script type="text/javascript" src="phonegap.js"></script>
+	<script type="text/javascript" src="js/plugins/SocialSharing.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+	<div ng-controller="ctrl" class="mainWrap">
+		<div class="header">
+			<div ng-click="goBack()" class="headerLabel">
+				<span class="backArrow">
+					<span ng-hide="selectedScreen">&nbsp;</span>
+					<span ng-show="selectedScreen">&#8249;</span>
+				</span>
+				<span ng-hide="selectedScreen">Giggle GIF</span>
+				<span ng-show="selectedScreen" ng-bind="selectedScreen.label"></span>
+			</div>
+			<div class="infoBadge" ng-click="selectedScreen = {id: 'about', label: 'About'}">i</div>
+		</div>
+		<div class="content" ng-show="selectedScreen.id === 'search'">
+			<form method="post" action="#" onsubmit="document.getElementById('inSearch').blur(); return false;">
+				<input id="inSearch" type="search" ng-model="searchValue" ng-change="searchGiphy(true)" placeholder="Type here to search" class="inputSearch" speech x-webkit-speech />
+			</form>
+			<div ng-repeat="gif in searchResults" class="gifContainer">
+				<img animate-on-visible="{{gif}}" class="imgGif" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
+				<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
+					<img src="img/share.png" />
+					<span>Share</span>
+				</div>
+			</div>
+		</div>
+		<div class="content" ng-show="selectedScreen.id === 'top'">
+			<div ng-repeat="gif in trendingResults" class="gifContainer">
+				<img animate-on-visible="{{gif}}" class="imgGif" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
+				<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
+					<img src="img/share.png" />
+					<span>Share</span>
+				</div>
+			</div>
+		</div>
+		<div class="content" ng-show="selectedScreen.id === 'tv'">
+			<div class="gifContainer">
+				<img ng-src="{{tvGif.image_original_url}}" class="imgGif" ng-click="tvGif.showMenuLayer = !tvGif.showMenuLayer; tvPause = tvGif.showMenuLayer" />
+				<div class="imgMenuLayer" ng-show="tvGif.showMenuLayer" ng-click="shareImg(tvGif)">
+					<img src="img/share.png" />
+					<span>Share</span>
+				</div>
+			</div>
+		</div>
+		<div class="content" ng-show="selectedScreen.id === 'about'">
+			<div class="textPanel" style="font-weight: bold; text-align: center;">
+				<div style="font-size: 20px;">version 1.0.0</div>
+				<div>Developed by Raphael Cohen.</div>
+			</div>
+			<div class="textPanel">
+				Like this app? We need your help to make it better. Please send us feedback and comments by contacting us.
+				Also, you can tell your friends about Giggle GIF by sharing this app with them.
+			</div>
+			<div ng-click="shareApp()" class="bigButton">
+				<img src="img/share.png" style="margin-top: 2px; margin-right: 3px;" /><span>Share this App</span>
+			</div>
+			<div ng-click="linkto('mailto:raphael.cohen@gmail.com?subject=GiggleGIF')" class="bigButton">
+				<img src="img/contact.png" style="margin-top: 2px; margin-right: 5px;" /><span>Contact Us</span>
+			</div>
+		</div>
+		<div class="content" ng-hide="selectedScreen">
+			<div ng-click="selectedScreen = {id: 'search', label: 'Search'}" class="bigButton">
+				<img src="img/search.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
+				<span>Search for GIFs</span>
+			</div>
+			<div ng-click="getTrendingGiphy(true)" class="bigButton">
+				<img src="img/top.png" style="margin-top: 2px; margin-right: 4px; float: left;" />
+				<span>What's Hot</span>
+			</div>
+			<div ng-click="startTV(true)" class="bigButton">
+				<img src="img/tv.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
+				<span>Giggle GIF TV</span>
+			</div>
+		</div>
+		<div class="footerUpArrow" ng-show="showUpArrow" scroll-up-on-click>
+			<span style="margin-top: 10px;">&#8679;</span>
+		</div>
+	</div>
+	<script type="text/javascript" src="js/angular.min.js"></script>
+	<script type="text/javascript" src="js/angular-touch.min.js"></script>
+	<script type="text/javascript" src="js/angular-animate.min.js"></script>
+	<script type="text/javascript" src="js/GiphyAPI.js"></script>
+	<script type="text/javascript" src="js/controller.js"></script>
+</body>
+</html>
