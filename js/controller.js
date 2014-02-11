@@ -5,6 +5,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	"use strict";
 	$scope.searchResults = [];
 	$scope.trendingResults = [];
+	$scope.randomTags = [];
 	$scope.retryFrequ = 7000;
 	$scope.tvPause = false;
 
@@ -20,6 +21,35 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	$scope.goBack = function () {
 		$scope.selectedScreen = undefined;
 		$scope.showUpArrow = false;
+		$scope.getRandomTags(true);
+	};
+
+	$scope.getRandomTags = function (reset) {
+		var addDataToRandomTags = function (data, err) {
+				var i, maxTags = 15;
+				if (data && data.data && data.data.tags && data.data.tags.length > 0) {
+					for (i = 0; i < data.data.tags.length; i += 1) {
+						if ($scope.randomTags.length < maxTags && $scope.randomTags.indexOf(data.data.tags[i]) === -1) {
+							$scope.randomTags.push(data.data.tags[i]);
+						}
+					}
+					$scope.safeApply();
+					if ($scope.randomTags.length < maxTags) {
+						$timeout($scope.getRandomTags, 1, false);
+					}
+				}
+			};
+		if (reset) {
+			$scope.randomTags = [];
+		}
+		GiphyAPI.random(undefined, addDataToRandomTags);
+	};
+
+	$scope.onTagClick = function (tag) {
+		console.log("onTagClick", tag);
+		$scope.searchValue = tag;
+		$scope.selectedScreen = {id: "search", label: "Search"};
+		$scope.searchGiphy(true);
 	};
 
 	$scope.searchGiphy = function (reset) {
@@ -146,6 +176,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 		$scope.safeApply(function () { $scope.selectedScreen = {id: "search", label: "Search"}; });
 	});
 
+	$scope.getRandomTags(true);
 });
 app.directive("scrollUpOnClick", function () {
 	"use strict";

@@ -213,3 +213,19 @@ body {
 .imgMenuLayer.ng-click-active {
 	opacity: 1;
 }
+
+.tag {
+	font-weight: bold;
+	float: left;
+	background-color: #00AEEF;
+	margin: 8px;
+	padding: 6px;
+	-webkit-box-shadow: 2px 2px 2px #c0c0c0;
+	box-shadow: 2px 2px 2px #c0c0c0;
+	border-radius: 4px 0px 0px 4px;
+}
+.tag.ng-click-active {
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	background-color: #74CCED;
+}

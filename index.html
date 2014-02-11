@@ -82,6 +82,9 @@
 				<img src="img/tv.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
 				<span>Giggle GIF TV</span>
 			</div>
+			<div>
+				<div ng-repeat="tag in randomTags track by $index" class="tag" ng-click="onTagClick(tag)" ng-bind="'• ' + tag"></div>
+			</div>
 		</div>
 		<div class="footerUpArrow" ng-show="showUpArrow" scroll-up-on-click>
 			<span style="margin-top: 10px;">&#8679;</span>
