@@ -259,3 +259,14 @@ body {
 .loadingAnimHide {
 	opacity: 0;
 }
+
+.aboutLogo {
+	background-color: #00AEEF;
+	color: #ffffff;
+	font-weight: bold;
+	font-size: 28px;
+	padding: 6px;
+	margin-bottom: 6px;
+	border-radius: 3px 3px 0px 0px;
+	-webkit-border-radius: 3px 3px 0px 0px;
+}

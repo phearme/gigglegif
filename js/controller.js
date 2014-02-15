@@ -209,7 +209,10 @@ app.directive("animateOnVisible", function () {
 	}
 
 	function setSrcIfVisible(imgEl, dataObj) {
-		var loadingElmHide = imgEl.parentNode.getElementsByClassName("loadingAnimHide")[0];
+		var loadingElmHide;
+		if (imgEl && imgEl.parentNode) {
+			var loadingElmHide = imgEl.parentNode.getElementsByClassName("loadingAnimHide")[0];
+		}
 		if (isElementInViewport(imgEl) && imgEl.src !== dataObj.images.original.url) {
 			if (loadingElmHide) {
 				loadingElmHide.className = "loadingAnim";
@@ -224,9 +227,11 @@ app.directive("animateOnVisible", function () {
 		var img = element[0],
 			gifObj = JSON.parse(attrs.animateOnVisible);
 		img.onload = function () {
-			var loadingElmVisible = img.parentNode.getElementsByClassName("loadingAnim")[0];
-			if (loadingElmVisible) {
-				loadingElmVisible.className = "loadingAnimHide";
+			if (img && img.parentNode) {
+				var loadingElmVisible = img.parentNode.getElementsByClassName("loadingAnim")[0];
+				if (loadingElmVisible) {
+					loadingElmVisible.className = "loadingAnimHide";
+				}
 			}
 			if (img.className !== "imgGif") {
 				img.className = "imgGif";

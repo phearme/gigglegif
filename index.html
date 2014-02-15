@@ -57,9 +57,12 @@
 			</div>
 		</div>
 		<div class="content" ng-show="selectedScreen.id === 'about'">
-			<div class="textPanel" style="font-weight: bold; text-align: center;">
-				<div style="font-size: 20px;">version 1.0.0</div>
-				<div>Developed by Raphael Cohen.</div>
+			<div class="textPanel" style="padding: 0px; font-weight: bold; text-align: center;">
+				<div class="aboutLogo">Giggle GIF</div>
+				<div>
+					<div style="font-size: 20px;">version 1.0.0</div>
+					<div>Developed by Raphael Cohen.</div>
+				</div>
 			</div>
 			<div class="textPanel">
 				Like this app? We need your help to make it better. Please send us feedback and comments by contacting us.
@@ -73,9 +76,11 @@
 			</div>
 		</div>
 		<div class="content" ng-hide="selectedScreen">
-			<div ng-click="selectedScreen = {id: 'search', label: 'Search'}" class="bigButton">
-				<img src="img/search.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
-				<span>Search for GIFs</span>
+			<div ng-click="searchValue = ''; searchResults = []; selectedScreen = {id: 'search', label: 'Search'}" class="bigButton">
+				<label for="inSearch">
+					<img src="img/search.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
+					<span>Search for GIFs</span>
+				</label>
 			</div>
 			<div ng-click="getTrendingGiphy(true)" class="bigButton">
 				<img src="img/top.png" style="margin-top: 2px; margin-right: 4px; float: left;" />
