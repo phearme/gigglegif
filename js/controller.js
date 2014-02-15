@@ -165,7 +165,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 
 	$scope.shareImg = function (img) {
 		if (window.plugins && window.plugins.socialsharing) {
-			if (img.images.fixed_height && img.url) {
+			if (img.url && img.images && img.images.fixed_height) {
 				window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.images.fixed_height.url, img.url);
 			} else if (img.image_original_url && img.image_url) {
 				window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.image_original_url, img.image_url);
