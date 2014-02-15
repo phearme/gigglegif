@@ -11,7 +11,7 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 </head>
 <body>
-	<div ng-controller="ctrl" class="mainWrap">
+	<div ng-controller="ctrl" class="mainWrap" ng-cloak>
 		<div class="header">
 			<div ng-click="goBack()" class="headerLabel">
 				<span class="backArrow">
@@ -21,6 +21,7 @@
 				<span ng-hide="selectedScreen">Giggle GIF</span>
 				<span ng-show="selectedScreen" ng-bind="selectedScreen.label"></span>
 			</div>
+			<div ng-include="'partials/loadingdata.html'" ng-show="loadingData"></div>
 			<div class="infoBadge" ng-click="selectedScreen = {id: 'about', label: 'About'}">i</div>
 		</div>
 		<div class="content" ng-show="selectedScreen.id === 'search'">
@@ -28,7 +29,8 @@
 				<input id="inSearch" type="search" ng-model="searchValue" ng-change="searchGiphy(true)" placeholder="Type here to search" class="inputSearch" speech x-webkit-speech />
 			</form>
 			<div ng-repeat="gif in searchResults" class="gifContainer">
-				<img animate-on-visible="{{gif}}" class="imgGif" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
+				<div class="loadingAnimHide">loading...</div>
+				<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
 				<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
 					<img src="img/share.png" />
 					<span>Share</span>
@@ -37,7 +39,8 @@
 		</div>
 		<div class="content" ng-show="selectedScreen.id === 'top'">
 			<div ng-repeat="gif in trendingResults" class="gifContainer">
-				<img animate-on-visible="{{gif}}" class="imgGif" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
+				<div class="loadingAnimHide">loading...</div>
+				<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
 				<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
 					<img src="img/share.png" />
 					<span>Share</span>
@@ -46,7 +49,7 @@
 		</div>
 		<div class="content" ng-show="selectedScreen.id === 'tv'">
 			<div class="gifContainer">
-				<img ng-src="{{tvGif.image_original_url}}" class="imgGif" ng-click="tvGif.showMenuLayer = !tvGif.showMenuLayer; tvPause = tvGif.showMenuLayer" />
+				<img ng-src="{{tvGif.image_original_url}}" ng-click="tvGif.showMenuLayer = !tvGif.showMenuLayer; tvPause = tvGif.showMenuLayer" class="imgGif" />
 				<div class="imgMenuLayer" ng-show="tvGif.showMenuLayer" ng-click="shareImg(tvGif)">
 					<img src="img/share.png" />
 					<span>Share</span>

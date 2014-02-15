@@ -1,5 +1,5 @@
-﻿/*jslint browser:true*/
-/*global $, GiphyAPI*/
+﻿/*jslint browser: true*/
+/*global console, $, GiphyAPI*/
 var app = angular.module("app", ["ngTouch", "ngAnimate"]);
 app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	"use strict";
@@ -8,6 +8,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	$scope.randomTags = [];
 	$scope.retryFrequ = 7000;
 	$scope.tvPause = false;
+	$scope.loadingData = false;
 
 	$scope.safeApply = function (fn) {
 		var phase = this.$root.$$phase;
@@ -25,8 +26,10 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	};
 
 	$scope.getRandomTags = function (reset) {
+		$scope.loadingData = true;
 		var addDataToRandomTags = function (data, err) {
 				var i, maxTags = 15;
+				$scope.loadingData = false;
 				if (data && data.data && data.data.tags && data.data.tags.length > 0) {
 					for (i = 0; i < data.data.tags.length; i += 1) {
 						if ($scope.randomTags.length < maxTags && $scope.randomTags.indexOf(data.data.tags[i]) === -1) {
@@ -46,13 +49,13 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	};
 
 	$scope.onTagClick = function (tag) {
-		console.log("onTagClick", tag);
 		$scope.searchValue = tag;
 		$scope.selectedScreen = {id: "search", label: "Search"};
 		$scope.searchGiphy(true);
 	};
 
 	$scope.searchGiphy = function (reset) {
+		$scope.loadingData = true;
 		if (reset) {
 			$scope.searchResults = [];
 			$scope.searchOffset = 0;
@@ -60,6 +63,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 		if ($scope.searchValue !== "") {
 			GiphyAPI.search($scope.searchValue, $scope.searchOffset, function (data, err) {
 				console.log(data);
+				$scope.loadingData = false;
 				if (data && data.data && data.data.length > 0) {
 					$scope.searchResults = $scope.searchResults.concat(data.data);
 					$scope.safeApply();
@@ -71,12 +75,14 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	};
 
 	$scope.getTrendingGiphy = function (reset) {
+		$scope.loadingData = true;
 		if (reset) {
 			$scope.selectedScreen = {id: "top", label: "What's Hot"};
 			$scope.trendingResults = [];
 			$scope.trendingOffset = 0;
 		}
 		GiphyAPI.trending($scope.trendingOffset, function (data, err) {
+			$scope.loadingData = false;
 			console.log(data);
 			if (data && data.data && data.data.length > 0) {
 				$scope.trendingResults = $scope.trendingResults.concat(data.data);
@@ -159,7 +165,11 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 
 	$scope.shareImg = function (img) {
 		if (window.plugins && window.plugins.socialsharing) {
-			window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.images.fixed_height.url, img.url);
+			if (img.images.fixed_height && img.url) {
+				window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.images.fixed_height.url, img.url);
+			} else if (img.image_original_url && img.image_url) {
+				window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.image_original_url, img.image_url);
+			}
 		}
 		$scope.hideImgMenuLayers(img);
 	};
@@ -199,11 +209,14 @@ app.directive("animateOnVisible", function () {
 	}
 
 	function setSrcIfVisible(imgEl, dataObj) {
-		//console.log("setSrcIfVisible", isElementInViewport(imgEl), dataObj, typeof dataObj);
+		var loadingElmHide = imgEl.parentNode.getElementsByClassName("loadingAnimHide")[0];
 		if (isElementInViewport(imgEl) && imgEl.src !== dataObj.images.original.url) {
+			if (loadingElmHide) {
+				loadingElmHide.className = "loadingAnim";
+			}
 			imgEl.src = dataObj.images.original.url;
-		} else if (!isElementInViewport(imgEl) && imgEl.src !== dataObj.images.fixed_width_still.url) {
-			imgEl.src = dataObj.images.fixed_width_still.url;
+		} else if (!isElementInViewport(imgEl) && imgEl.src !== dataObj.images.fixed_height_still.url) {
+			imgEl.src = dataObj.images.fixed_height_still.url;
 		}
 	}
 
@@ -211,12 +224,19 @@ app.directive("animateOnVisible", function () {
 		var img = element[0],
 			gifObj = JSON.parse(attrs.animateOnVisible);
 		img.onload = function () {
+			var loadingElmVisible = img.parentNode.getElementsByClassName("loadingAnim")[0];
+			if (loadingElmVisible) {
+				loadingElmVisible.className = "loadingAnimHide";
+			}
+			if (img.className !== "imgGif") {
+				img.className = "imgGif";
+			}
 			setSrcIfVisible(img, gifObj);
 		};
 		window.addEventListener("scroll", function () {
 			setSrcIfVisible(img, gifObj);
 		});
-		img.src = gifObj.images.fixed_width_still.url;
+		img.src = gifObj.images.fixed_height_still.url;
 	};
 });
 
