@@ -19,15 +19,13 @@
 					<span ng-show="selectedScreen">&#8249;</span>
 				</span>
 				<span ng-hide="selectedScreen">Giggle GIF</span>
-				<span ng-show="selectedScreen" ng-bind="selectedScreen.label"></span>
+				<span ng-show="selectedScreen" ng-bind="selectedScreen.label" style="text-overflow: ellipsis;"></span>
 			</div>
 			<div ng-include="'partials/loadingdata.html'" ng-show="loadingData"></div>
 			<div class="infoBadge" ng-click="selectedScreen = {id: 'about', label: 'About'}">i</div>
 		</div>
 		<div class="content" ng-show="selectedScreen.id === 'search'">
-			<form method="post" action="#" onsubmit="document.getElementById('inSearch').blur(); return false;">
-				<input id="inSearch" type="search" ng-model="searchValue" ng-change="searchGiphy(true)" placeholder="Type here to search" class="inputSearch" speech x-webkit-speech />
-			</form>
+			<div class="textPanel" ng-bind="searchValue"></div>
 			<div ng-repeat="gif in searchResults" class="gifContainer">
 				<div class="loadingAnimHide">loading...</div>
 				<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
@@ -76,22 +74,23 @@
 			</div>
 		</div>
 		<div class="content" ng-hide="selectedScreen">
-			<div ng-click="searchValue = ''; searchResults = []; selectedScreen = {id: 'search', label: 'Search'}" class="bigButton">
-				<label for="inSearch">
-					<img src="img/search.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
-					<span>Search for GIFs</span>
-				</label>
+			<div class="mainFixedPanel">
+				<form ng-submit="searchSubmit()">
+					<input id="inSearch" type="search" ng-model="searchValue" placeholder="Type here to search" class="inputSearch" speech x-webkit-speech />
+				</form>
+				<div ng-click="getTrendingGiphy(true)" class="bigButton">
+					<img src="img/top.png" style="margin-top: 2px; margin-right: 4px; float: left;" />
+					<span>What's Hot</span>
+				</div>
+				<div ng-click="startTV(true)" class="bigButton">
+					<img src="img/tv.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
+					<span>Giggle GIF TV</span>
+				</div>
 			</div>
-			<div ng-click="getTrendingGiphy(true)" class="bigButton">
-				<img src="img/top.png" style="margin-top: 2px; margin-right: 4px; float: left;" />
-				<span>What's Hot</span>
-			</div>
-			<div ng-click="startTV(true)" class="bigButton">
-				<img src="img/tv.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
-				<span>Giggle GIF TV</span>
-			</div>
-			<div>
-				<div ng-repeat="tag in randomTags track by $index" class="tag" ng-click="onTagClick(tag)" ng-bind="'• ' + tag"></div>
+			<div class="mainScrollableTags">
+				<div>
+					<div ng-repeat="tag in randomTags track by $index" class="tag" ng-click="onTagClick(tag)" ng-bind="'• ' + tag"></div>
+				</div>
 			</div>
 		</div>
 		<div class="footerUpArrow" ng-show="showUpArrow" scroll-up-on-click>

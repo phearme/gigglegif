@@ -22,6 +22,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	$scope.goBack = function () {
 		$scope.selectedScreen = undefined;
 		$scope.showUpArrow = false;
+		$scope.searchValue = "";
 		$scope.getRandomTags(true);
 	};
 
@@ -72,6 +73,12 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 				}
 			});
 		}
+	};
+
+	$scope.searchSubmit = function () {
+		$scope.selectedScreen = {id: "search", label: "Search"};
+		$scope.searchGiphy(true);
+		return false;
 	};
 
 	$scope.getTrendingGiphy = function (reset) {
@@ -211,7 +218,7 @@ app.directive("animateOnVisible", function () {
 	function setSrcIfVisible(imgEl, dataObj) {
 		var loadingElmHide;
 		if (imgEl && imgEl.parentNode) {
-			var loadingElmHide = imgEl.parentNode.getElementsByClassName("loadingAnimHide")[0];
+			loadingElmHide = imgEl.parentNode.getElementsByClassName("loadingAnimHide")[0];
 		}
 		if (isElementInViewport(imgEl) && imgEl.src !== dataObj.images.original.url) {
 			if (loadingElmHide) {
