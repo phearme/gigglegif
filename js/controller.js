@@ -3,6 +3,7 @@
 var app = angular.module("app", ["ngTouch", "ngAnimate"]);
 app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	"use strict";
+	$scope.searchValue = "";
 	$scope.searchResults = [];
 	$scope.trendingResults = [];
 	$scope.randomTags = [];
