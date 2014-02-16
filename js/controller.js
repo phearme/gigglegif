@@ -76,8 +76,10 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	};
 
 	$scope.searchSubmit = function () {
-		$scope.selectedScreen = {id: "search", label: "Search"};
-		$scope.searchGiphy(true);
+		if ($scope.searchValue !== "") {
+			$scope.selectedScreen = {id: "search", label: "Search"};
+			$scope.searchGiphy(true);
+		}
 		return false;
 	};
 
