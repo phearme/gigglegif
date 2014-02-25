@@ -257,7 +257,7 @@ app.directive("animateOnVisible", function () {
 
 document.addEventListener("deviceready", function () {
 	"use strict";
-
 	angular.bootstrap(document, ["app"]);
-
 }, false);
+
+//document.dispatchEvent(new CustomEvent("deviceready"));
