@@ -36,18 +36,23 @@
 						<span>Share</span>
 					</div>
 				</div>
-				<div ng-if="$odd" class="gifContainer">
+				<div ng-if="($index + 1) % 5 === 0">
 					<script type="text/javascript" src="http://ad.leadboltads.net/show_app_ad.js?section_id=270251555"></script>
 				</div>
 			</div>
 		</div>
 		<div class="content" ng-show="selectedScreen.id === 'top'">
-			<div ng-repeat="gif in trendingResults" class="gifContainer">
-				<div class="loadingAnimHide">loading...</div>
-				<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
-				<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
-					<img src="img/share.png" />
-					<span>Share</span>
+			<div ng-repeat="gif in trendingResults">
+				<div class="gifContainer">
+					<div class="loadingAnimHide">loading...</div>
+					<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
+					<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
+						<img src="img/share.png" />
+						<span>Share</span>
+					</div>
+				</div>
+				<div ng-if="($index + 1) % 5 === 0">
+					<script type="text/javascript" src="http://ad.leadboltads.net/show_app_ad.js?section_id=270251555"></script>
 				</div>
 			</div>
 		</div>
@@ -126,6 +131,9 @@
 				<div>
 					<div ng-repeat="tag in randomTags track by $index" class="tag" ng-click="onTagClick(tag)" ng-bind="'• ' + tag"></div>
 				</div>
+			</div>
+			<div style="position: fixed; width: 100%; height: 50px; left: 0px; bottom: 0px; z-index: 99;">
+				<script type="text/javascript" src="http://ad.leadboltads.net/show_app_ad.js?section_id=270251555"></script>
 			</div>
 		</div>
 		<div class="footerUpArrow" ng-show="showUpArrow" scroll-up-on-click>
