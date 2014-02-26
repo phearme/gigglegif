@@ -26,13 +26,18 @@
 			<div class="infoBadge" ng-click="selectedScreen = {id: 'about', label: 'About'}">i</div>
 		</div>
 		<div class="content" ng-show="selectedScreen.id === 'search'">
-			<div class="textPanel" ng-bind="searchValue"></div>
-			<div ng-repeat="gif in searchResults" class="gifContainer">
-				<div class="loadingAnimHide">loading...</div>
-				<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
-				<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
-					<img src="img/share.png" />
-					<span>Share</span>
+			<div class="textPanel" ng-bind="searchValue.text"></div>
+			<div ng-repeat="gif in searchResults">
+				<div class="gifContainer">
+					<div class="loadingAnimHide">loading...</div>
+					<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
+					<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
+						<img src="img/share.png" />
+						<span>Share</span>
+					</div>
+				</div>
+				<div ng-if="$odd" class="gifContainer">
+					<script type="text/javascript" src="http://ad.leadboltads.net/show_app_ad.js?section_id=270251555"></script>
 				</div>
 			</div>
 		</div>
@@ -64,7 +69,7 @@
 				<div style="padding: 4px;">
 					<img style="float: right; margin: 4px;" src="img/Giphy_API_Logo_ForWhite_Trans.gif" />
 					<div style="text-align: left; margin: 4px;">
-						<div style="font-size: 20px;">version 1.0.5</div>
+						<div style="font-size: 20px;">version 1.0.6</div>
 						<div>Developed by Raphael Cohen.</div>
 					</div>
 				</div>
@@ -86,7 +91,7 @@
 					<tr>
 						<td style="padding: 0px;">
 							<form ng-submit="searchSubmit()">
-								<input id="inSearch" type="search" ng-model="searchValue" placeholder="Type here to search" class="inputSearch" speech x-webkit-speech />
+								<input id="inSearch" type="search" ng-model="searchValue.text" placeholder="Type here to search" class="inputSearch" speech x-webkit-speech />
 							</form>
 						</td>
 						<td style="width: 74px; padding: 0px;">

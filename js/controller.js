@@ -3,7 +3,7 @@
 var app = angular.module("app", ["ngTouch", "ngAnimate"]);
 app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	"use strict";
-	$scope.searchValue = "";
+	$scope.searchValue = {text: ""};
 	$scope.searchResults = [];
 	$scope.trendingResults = [];
 	$scope.randomTags = [];
@@ -23,7 +23,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	$scope.goBack = function () {
 		$scope.selectedScreen = undefined;
 		$scope.showUpArrow = false;
-		$scope.searchValue = "";
+		$scope.searchValue.text = "";
 		$scope.getRandomTags(true);
 	};
 
@@ -51,7 +51,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	};
 
 	$scope.onTagClick = function (tag) {
-		$scope.searchValue = tag;
+		$scope.searchValue.text = tag;
 		$scope.selectedScreen = {id: "search", label: "Search"};
 		$scope.searchGiphy(true);
 	};
@@ -62,8 +62,8 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 			$scope.searchResults = [];
 			$scope.searchOffset = 0;
 		}
-		if ($scope.searchValue !== "") {
-			GiphyAPI.search($scope.searchValue, $scope.searchOffset, function (data, err) {
+		if ($scope.searchValue.text !== "") {
+			GiphyAPI.search($scope.searchValue.text, $scope.searchOffset, function (data, err) {
 				console.log(data);
 				$scope.loadingData = false;
 				if (data && data.data && data.data.length > 0) {
@@ -77,7 +77,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	};
 
 	$scope.searchSubmit = function () {
-		if ($scope.searchValue !== "") {
+		if ($scope.searchValue.text !== "") {
 			$scope.selectedScreen = {id: "search", label: "Search"};
 			$scope.searchGiphy(true);
 		}
