@@ -4,8 +4,8 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "com.phonegap.gigglegif"
-        version   = "1.0.6"
-		versionCode	= "106">
+        version   = "1.0.7"
+		versionCode	= "107">
 
     <name>Giggle GIF</name>
 

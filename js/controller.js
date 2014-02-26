@@ -260,4 +260,4 @@ document.addEventListener("deviceready", function () {
 	angular.bootstrap(document, ["app"]);
 }, false);
 
-document.dispatchEvent(new CustomEvent("deviceready"));
+//document.dispatchEvent(new CustomEvent("deviceready"));
