@@ -10,6 +10,7 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	$scope.retryFrequ = 7000;
 	$scope.tvPause = false;
 	$scope.loadingData = false;
+	$scope.appStoreUrl = "https://play.google.com/store/apps/details?id=com.phonegap.gigglegif";
 
 	$scope.safeApply = function (fn) {
 		var phase = this.$root.$$phase;
@@ -169,16 +170,16 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 
 	$scope.shareApp = function () {
 		if (window.plugins && window.plugins.socialsharing) {
-			window.plugins.socialsharing.share(null, null, null, "https://play.google.com/store/apps/details?id=com.phonegap.gigglegif");
+			window.plugins.socialsharing.share(null, null, null, $scope.appStoreUrl);
 		}
 	};
 
 	$scope.shareImg = function (img) {
 		if (window.plugins && window.plugins.socialsharing) {
-			if (img.url && img.images && img.images.fixed_height) {
-				window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.images.fixed_height.url, img.url);
-			} else if (img.image_original_url && img.image_url) {
-				window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.image_original_url, img.image_url);
+			if (img.images && img.images.fixed_height) {
+				window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.images.fixed_height.url, $scope.appStoreUrl);
+			} else if (img.image_original_url) {
+				window.plugins.socialsharing.share("Shared with Giggle GIF", null, img.image_original_url, img.$scope.appStoreUrl);
 			}
 		}
 		$scope.hideImgMenuLayers(img);
