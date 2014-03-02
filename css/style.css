@@ -23,6 +23,7 @@ body {
 
 .header {
 	position: fixed;
+	display: table-cell;
 	width: 100%;
 	left: 0px;
 	top: 0px;
@@ -37,8 +38,8 @@ body {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
-	-webkit-box-shadow: 0px 2px 2px #ffffff;
-	box-shadow: 0px 2px 2px #ffffff;
+	-webkit-box-shadow: 0px 2px 2px #F0EEE9;
+	box-shadow: 0px 2px 2px #F0EEE9;
 }
 
 .footerUpArrow {
@@ -64,7 +65,8 @@ body {
 	color: #ffffff;
 	font-weight: bold;
 	font-size: 24px;
-	text-shadow: 0px 0px 2px #008FC4;
+	text-shadow: 1px 1px 2px #008FC4;
+	display: inline-block;
 }
 
 .headerLabel.ng-click-active {
@@ -111,6 +113,7 @@ body {
 .infoBadge {
 	background-color: #008FC4;
 	position: absolute;
+	display: inline-block;
 	top: 0px;
 	right: 0px;
 	margin-top: 8px;
@@ -139,6 +142,8 @@ body {
 	background-color: #7FC04C;
 	border-radius: 4px;
 	margin: 4px;
+	margin-left: 8px; 
+	margin-right: 8px;
 	padding: 6px;
 	font-size: 24px;
 	font-weight: bold;
@@ -152,7 +157,9 @@ body {
 }
 
 .inputSearch {
-	width: 96%;
+	width: 100%;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
 	outline: none;
 	background-color: #ffffff;
 	background-image: -webkit-linear-gradient(top, #c0c0c0, #ffffff);
@@ -160,10 +167,15 @@ body {
 	border-radius: 2px;
 	-webkit-border-radius: 2px;
 	border: 0;
+	border-width: 0;
+	display: block;
 	height: 42px;
 	font-size: 24px;
 	-webkit-box-shadow: 0px 1px 1px #c0c0c0;
-	margin: 4px;
+	margin: 0px;
+	margin-bottom: 4px;
+	margin-top: 2px;
+	padding: 0px;
 }
 
 .content.ng-hide-add, .content.ng-hide-remove,
@@ -176,8 +188,7 @@ body {
 	background-color: #ffffff;
 	color: #000000;
 	padding: 10px;
-	margin: 4px;
-	margin-top: 8px;
+	margin: 8px;
 	margin-bottom: 10px;
 	text-align: left;
 }
@@ -231,7 +242,7 @@ body {
 	padding: 6px;
 	-webkit-box-shadow: 2px 2px 2px #c0c0c0;
 	box-shadow: 2px 2px 2px #c0c0c0;
-	border-radius: 4px 0px 0px 4px;
+	border-radius: 16px 2px 2px 16px;
 }
 .tag.ng-click-active {
 	-webkit-box-shadow: none;
@@ -281,5 +292,16 @@ body {
 }
 
 .mainScrollableTags {
-	margin-top: 142px;
+	margin-top: 146px;
+}
+
+.bottomAdsContainer {
+	position: fixed;
+	display: table-cell;
+	vertical-align: bottom;
+	width: 100%;
+	height: 56px;
+	left: 0px;
+	bottom: 0px;
+	z-index: 99;
 }

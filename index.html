@@ -31,7 +31,7 @@
 				<div class="gifContainer">
 					<div class="loadingAnimHide">loading...</div>
 					<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
-					<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
+					<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)" ng-cloak>
 						<img src="img/share.png" />
 						<span>Share</span>
 					</div>
@@ -46,7 +46,7 @@
 				<div class="gifContainer">
 					<div class="loadingAnimHide">loading...</div>
 					<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
-					<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)">
+					<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)" ng-cloak>
 						<img src="img/share.png" />
 						<span>Share</span>
 					</div>
@@ -59,7 +59,7 @@
 		<div class="content" ng-show="selectedScreen.id === 'tv'">
 			<div class="gifContainer">
 				<img ng-src="{{tvGif.image_original_url}}" ng-click="tvGif.showMenuLayer = !tvGif.showMenuLayer; tvPause = tvGif.showMenuLayer" class="imgGif" />
-				<div class="imgMenuLayer" ng-show="tvGif.showMenuLayer" ng-click="shareImg(tvGif)">
+				<div class="imgMenuLayer" ng-show="tvGif.showMenuLayer" ng-click="shareImg(tvGif)" ng-cloak>
 					<img src="img/share.png" />
 					<span>Share</span>
 				</div>
@@ -74,7 +74,7 @@
 				<div style="padding: 4px;">
 					<img style="float: right; margin: 4px;" src="img/Giphy_API_Logo_ForWhite_Trans.gif" />
 					<div style="text-align: left; margin: 4px;">
-						<div style="font-size: 20px;">version 1.0.7</div>
+						<div style="font-size: 20px;">version 1.0.8</div>
 						<div>Developed by Raphael Cohen.</div>
 					</div>
 				</div>
@@ -94,9 +94,9 @@
 			<div class="mainFixedPanel">
 				<table style="width: 100%; border-spacing: 0px;">
 					<tr>
-						<td style="padding: 0px;">
-							<form ng-submit="searchSubmit()">
-								<input id="inSearch" type="search" ng-model="searchValue.text" placeholder="Type here to search" class="inputSearch" speech x-webkit-speech />
+						<td style="padding-right: 8px; padding-left: 8px;">
+							<form ng-submit="searchSubmit()" style="margin: 0px; padding: 0px; display:inline;">
+								<input id="inSearch" type="search" ng-model="searchValue.text" placeholder="Type here to search" class="inputSearch" />
 							</form>
 						</td>
 						<td style="width: 74px; padding: 0px;">
@@ -132,8 +132,10 @@
 					<div ng-repeat="tag in randomTags track by $index" class="tag" ng-click="onTagClick(tag)" ng-bind="'• ' + tag"></div>
 				</div>
 			</div>
-			<div style="position: fixed; width: 100%; height: 50px; left: 0px; bottom: 0px; z-index: 99;">
-				<script type="text/javascript" src="http://ad.leadboltads.net/show_app_ad.js?section_id=270251555"></script>
+			<div class="bottomAdsContainer">
+				<div style="display: inline-block;">
+					<script type="text/javascript" src="http://ad.leadboltads.net/show_app_ad.js?section_id=270251555"></script>
+				</div>
 			</div>
 		</div>
 		<div class="footerUpArrow" ng-show="showUpArrow" scroll-up-on-click>
