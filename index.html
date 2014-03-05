@@ -29,11 +29,18 @@
 			<div class="textPanel" ng-bind="searchValue.text"></div>
 			<div ng-repeat="gif in searchResults">
 				<div class="gifContainer">
-					<div class="loadingAnimHide">loading...</div>
+					<div class="loadingAnimHide">
+						<div id="bowlG">
+							<div id="bowl_ringG">
+								<div class="ball_holderG">
+									<div class="ballG"></div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
 					<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)" ng-cloak>
-						<img src="img/share.png" />
-						<span>Share</span>
+						<span>Share &#8250;</span>
 					</div>
 				</div>
 				<div ng-if="($index + 1) % 5 === 0">
@@ -44,11 +51,18 @@
 		<div class="content" ng-show="selectedScreen.id === 'top'">
 			<div ng-repeat="gif in trendingResults">
 				<div class="gifContainer">
-					<div class="loadingAnimHide">loading...</div>
+					<div class="loadingAnimHide">
+						<div id="bowlG">
+							<div id="bowl_ringG">
+								<div class="ball_holderG">
+									<div class="ballG"></div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<img animate-on-visible="{{gif}}" class="imgNotLoaded" ng-click="gif.showMenuLayer = !gif.showMenuLayer" />
 					<div class="imgMenuLayer" ng-show="gif.showMenuLayer" ng-click="shareImg(gif)" ng-cloak>
-						<img src="img/share.png" />
-						<span>Share</span>
+						<span>Share &#8250;</span>
 					</div>
 				</div>
 				<div ng-if="($index + 1) % 5 === 0">
@@ -60,8 +74,7 @@
 			<div class="gifContainer">
 				<img ng-src="{{tvGif.image_original_url}}" ng-click="tvGif.showMenuLayer = !tvGif.showMenuLayer; tvPause = tvGif.showMenuLayer" class="imgGif" />
 				<div class="imgMenuLayer" ng-show="tvGif.showMenuLayer" ng-click="shareImg(tvGif)" ng-cloak>
-					<img src="img/share.png" />
-					<span>Share</span>
+					<span>Share &#8250;</span>
 				</div>
 			</div>
 			<div>
@@ -74,7 +87,7 @@
 				<div style="padding: 4px;">
 					<img style="float: right; margin: 4px;" src="img/Giphy_API_Logo_ForWhite_Trans.gif" />
 					<div style="text-align: left; margin: 4px;">
-						<div style="font-size: 20px;">version 1.0.9</div>
+						<div style="font-size: 20px;">version 1.1.0</div>
 						<div>Developed by Raphael Cohen.</div>
 					</div>
 				</div>
@@ -84,48 +97,31 @@
 				Also, you can tell your friends about Giggle GIF by sharing this app with them.
 			</div>
 			<div ng-click="shareApp()" class="bigButton">
-				<img src="img/share.png" style="margin-top: 2px; margin-right: 3px;" /><span>Share this App</span>
+				<div class="share" style="float: left; top: 6px; left: 8px; margin-right: 18px;"></div>
+				<span>Share this App</span>
 			</div>
 			<div ng-click="linkto('mailto:raphael.cohen@gmail.com?subject=GiggleGIF')" class="bigButton">
-				<img src="img/contact.png" style="margin-top: 2px; margin-right: 5px;" /><span>Contact Us</span>
+				<div class="mail" style="float: left; top: 6px; margin-right: 8px;"></div>
+				<span>Contact Us</span>
 			</div>
 		</div>
 		<div class="content" style="margin-bottom: 56px;" ng-hide="selectedScreen">
 			<div class="mainFixedPanel">
-				<table style="width: 100%; border-spacing: 0px;">
-					<tr>
-						<td style="padding-right: 8px; padding-left: 8px;">
-							<form ng-submit="searchSubmit()" style="margin: 0px; padding: 0px; display:inline;">
-								<input id="inSearch" type="search" ng-model="searchValue.text" placeholder="Type here to search" class="inputSearch" />
-							</form>
-						</td>
-						<td style="width: 74px; padding: 0px;">
-							<img src="img/Giphy_API_Logo_ForWhite_Trans.gif" />
-						</td>
-					</tr>
-					<tr>
-						<td style="padding: 0px;">
-							<div ng-click="getTrendingGiphy(true)" class="bigButton">
-								<img src="img/top.png" style="margin-top: 2px; margin-right: 4px; float: left;" />
-								<span>What's Hot</span>
-							</div>
-						</td>
-						<td style="width: 74px; padding: 0px;">
-							<img src="img/Giphy_API_Logo_ForWhite_Trans.gif" />
-						</td>
-					</tr>
-					<tr>
-						<td style="padding: 0px;">
-							<div ng-click="startTV(true)" class="bigButton">
-								<img src="img/tv.png" style="margin-top: 2px; margin-right: 6px; float: left;" />
-								<span>Giggle GIF TV</span>
-							</div>
-						</td>
-						<td style="width: 74px; padding: 0px;">
-							<img src="img/Giphy_API_Logo_ForWhite_Trans.gif" />
-						</td>
-					</tr>
-				</table>
+				<div style="padding-left: 8px; padding-right: 8px; margin-bottom: 6px;">
+					<form ng-submit="searchSubmit()" style="margin: 0px; padding: 0px; display:inline;">
+						<input id="inSearch" type="search" ng-model="searchValue.text" placeholder="Type here to search" class="inputSearch" />
+					</form>
+				</div>
+				<div ng-click="getTrendingGiphy(true)" class="bigButton">
+					<div class="star" style="float: left; top: 10px; margin-right: 6px;"></div>
+					<span>What's Hot</span>
+					<img src="img/Giphy_API_Logo_ForWhite.gif" style="float: right; border-radius: 4px; border: 2px solid #ffffff;" />
+				</div>
+				<div ng-click="startTV(true)" class="bigButton">
+					<div class="video" style="float: left; top: 6px; margin-right: 14px;"></div>
+					<span>GIF TV</span>
+					<img src="img/Giphy_API_Logo_ForWhite.gif" style="float: right; border-radius: 4px; border: 2px solid #ffffff;" />
+				</div>
 			</div>
 			<div class="mainScrollableTags">
 				<div>
