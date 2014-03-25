@@ -22,9 +22,9 @@ app.controller("ctrl", function ctrl($scope, $window, $document, $timeout) {
 	};
 
 	$scope.goBack = function () {
+		//$scope.searchValue.text = "";
 		$scope.selectedScreen = undefined;
 		$scope.showUpArrow = false;
-		$scope.searchValue.text = "";
 		$scope.getRandomTags(true);
 	};
 
