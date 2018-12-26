@@ -1,5 +1,5 @@
 ﻿var GiphyAPI = {
-	api_key: "ud1XSljsl4DqE",//"dc6zaTOxFJmzC",
+	api_key: "xxx",
 	default_url: "http://api.giphy.com/v1/gifs/",
 	page_size: 5,
 	genericAjax: function (url, cb) {
